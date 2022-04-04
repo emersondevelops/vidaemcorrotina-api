@@ -1,7 +1,6 @@
 package dev.vidaemcorrotinaapi
 
 import java.util.UUID
-import java.util.UUID.randomUUID
 import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.Table
@@ -10,7 +9,8 @@ import javax.persistence.Table
 @Table(name = "posts")
 class PostEntity(
     @Id
-    val id: UUID = randomUUID(),
+    val id: UUID = UUID.randomUUID(),
     var title: String,
-    var text: String
+    var text: String,
+    var active: Boolean = true
 )
