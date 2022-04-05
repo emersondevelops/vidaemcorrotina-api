@@ -12,9 +12,15 @@ class PostsExceptionHandler {
     @ExceptionHandler
     fun handleMethodArgumentNotValidException(exception: MethodArgumentNotValidException):
             ResponseEntity<MutableList<ErrorResponse>> {
-        val errors = mutableListOf<ErrorResponse>()
-        for (error in exception.fieldErrors)
-            errors.add(ErrorResponse(field = error.field, error = error.defaultMessage ?: ""))
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors)
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(exception.fieldErrors.map {
+                ErrorResponse(error = it.field, message = it.defaultMessage)
+            }.toMutableList())
+    }
+
+    @ExceptionHandler
+    fun handleIllegalArgumentException(exception: IllegalArgumentException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(ErrorResponse(error = null, message = exception.message))
     }
 }
