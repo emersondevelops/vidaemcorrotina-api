@@ -23,4 +23,10 @@ class PostsExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
             .body(ErrorResponse(error = null, message = exception.message))
     }
+
+    @ExceptionHandler
+    fun handleException(exception: Exception): ResponseEntity<ErrorResponse> {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(ErrorResponse(error = null, message = exception.message))
+    }
 }
