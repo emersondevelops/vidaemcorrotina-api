@@ -1,5 +1,6 @@
 package dev.vidaemcorrotinaapi.controller
 
+import dev.vidaemcorrotinaapi.dto.FullPost
 import dev.vidaemcorrotinaapi.dto.NewPost
 import dev.vidaemcorrotinaapi.dto.UpdatePost
 import dev.vidaemcorrotinaapi.entity.PostEntity
@@ -23,12 +24,12 @@ import javax.validation.Valid
 class PostController(val postService: PostService) {
 
     @GetMapping
-    fun listPosts(): MutableList<PostEntity> {
+    fun listPosts(): MutableList<FullPost> {
         return postService.listAll()
     }
 
     @GetMapping("/{id}")
-    fun findPostById(@PathVariable id: String): ResponseEntity<PostEntity> {
+    fun findPostById(@PathVariable id: String): ResponseEntity<FullPost> {
         return try {
             ResponseEntity.status(OK).body(postService.findById(id))
         } catch (exception: NoSuchElementException) {
@@ -37,12 +38,12 @@ class PostController(val postService: PostService) {
     }
 
     @PostMapping
-    fun createPost(@RequestBody @Valid newPost: NewPost): ResponseEntity<PostEntity> {
+    fun createPost(@RequestBody @Valid newPost: NewPost): ResponseEntity<FullPost> {
         return ResponseEntity.status(CREATED).body(postService.create(newPost))
     }
 
     @PutMapping("/{id}")
-    fun updatePost(@PathVariable id: String, @RequestBody @Valid updatedPost: UpdatePost): ResponseEntity<PostEntity> {
+    fun updatePost(@PathVariable id: String, @RequestBody @Valid updatedPost: UpdatePost): ResponseEntity<FullPost> {
         return try {
             ResponseEntity.status(OK).body(postService.update(id, updatedPost))
         } catch (exception: NoSuchElementException) {
@@ -50,4 +51,3 @@ class PostController(val postService: PostService) {
         }
     }
 }
-
