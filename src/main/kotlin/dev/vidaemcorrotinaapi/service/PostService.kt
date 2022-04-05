@@ -12,8 +12,8 @@ import java.util.UUID
 
 @Service
 class PostService(val postRepository: PostRepository) {
-    fun listAll(): MutableList<FullPost> {
-        return postRepository.findAll().map { entity -> entity.toFullPostDto() }.toMutableList()
+    fun listAll(active: Boolean): MutableList<FullPost> {
+        return postRepository.findAllByActive(active).map { entity -> entity.toFullPostDto() }.toMutableList()
     }
 
     fun findById(id: String): FullPost {

@@ -4,4 +4,6 @@ import dev.vidaemcorrotinaapi.entity.PostEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.UUID
 
-interface PostRepository: JpaRepository<PostEntity, UUID>
+interface PostRepository: JpaRepository<PostEntity, UUID> {
+    fun findAllByActive(active: Boolean): List<PostEntity>
+}
