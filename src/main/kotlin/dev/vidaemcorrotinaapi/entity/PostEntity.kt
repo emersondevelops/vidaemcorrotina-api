@@ -1,7 +1,9 @@
 package dev.vidaemcorrotinaapi.entity
 
 import java.time.LocalDateTime
+import java.time.LocalDateTime.now
 import java.util.UUID
+import java.util.UUID.randomUUID
 import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.Table
@@ -10,10 +12,10 @@ import javax.persistence.Table
 @Table(name = "posts")
 class PostEntity(
     @Id
-    val id: UUID = UUID.randomUUID(),
+    val id: UUID = randomUUID(),
     var title: String,
     var text: String,
-    var createdAt: LocalDateTime = LocalDateTime.now(),
+    var createdAt: LocalDateTime = now(),
     var updatedAt: LocalDateTime? = null,
     var active: Boolean = true
 )
