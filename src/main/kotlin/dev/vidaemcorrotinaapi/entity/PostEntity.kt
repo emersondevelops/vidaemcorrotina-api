@@ -6,6 +6,7 @@ import java.util.UUID
 import java.util.UUID.randomUUID
 import javax.persistence.Entity
 import javax.persistence.Id
+import javax.persistence.ManyToOne
 import javax.persistence.Table
 
 @Entity
@@ -15,6 +16,8 @@ class PostEntity(
     val id: UUID = randomUUID(),
     var title: String,
     var text: String,
+    @ManyToOne
+    val author: UserEntity,
     var createdAt: LocalDateTime = now(),
     var updatedAt: LocalDateTime? = null,
     var active: Boolean = true

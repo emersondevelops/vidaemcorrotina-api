@@ -10,6 +10,7 @@ data class FullPost(
     val id: UUID,
     val title: String,
     val text: String,
+    val author: String,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime?,
 )

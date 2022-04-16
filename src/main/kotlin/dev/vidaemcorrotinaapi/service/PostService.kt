@@ -6,12 +6,16 @@ import dev.vidaemcorrotinaapi.dto.UpdatePost
 import dev.vidaemcorrotinaapi.mapper.toEntity
 import dev.vidaemcorrotinaapi.mapper.toFullPostDto
 import dev.vidaemcorrotinaapi.repository.PostRepository
+import dev.vidaemcorrotinaapi.repository.UserRepository
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
-import java.util.UUID
+import java.util.*
 
 @Service
-class PostService(val postRepository: PostRepository) {
+class PostService(
+    val postRepository: PostRepository,
+    val userRepository: UserRepository
+) {
     fun listAll(active: Boolean): MutableList<FullPost> {
         return postRepository.findAllByActive(active).map { entity -> entity.toFullPostDto() }.toMutableList()
     }
@@ -21,7 +25,11 @@ class PostService(val postRepository: PostRepository) {
     }
 
     fun create(newPost: NewPost): FullPost {
-        return postRepository.save(newPost.toEntity()).toFullPostDto()
+        val author = userRepository.findById(UUID.fromString(newPost.authorId!!))
+        when {
+            author.isPresent -> return postRepository.save(newPost.toEntity(author.get())).toFullPostDto()
+            else -> throw IllegalArgumentException("authorId '${newPost.authorId}' does not exist")
+        }
     }
 
     fun update(id: String, updatedPost: UpdatePost): FullPost {
