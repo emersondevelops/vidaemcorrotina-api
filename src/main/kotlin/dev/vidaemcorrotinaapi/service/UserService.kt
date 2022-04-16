@@ -5,7 +5,7 @@ import dev.vidaemcorrotinaapi.entity.UserEntity
 import dev.vidaemcorrotinaapi.mapper.toEntity
 import dev.vidaemcorrotinaapi.repository.UserRepository
 import org.springframework.stereotype.Service
-import java.util.*
+import java.util.UUID
 
 @Service
 class UserService(val userRepository: UserRepository) {
@@ -18,6 +18,7 @@ class UserService(val userRepository: UserRepository) {
     }
 
     fun create(newUser: NewUser): UserEntity {
-        return userRepository.save(newUser.toEntity())
+        userRepository.findByEmail(newUser.email!!) ?: return userRepository.save(newUser.toEntity())
+        throw IllegalArgumentException("user with e-mail '${newUser.email}' already exists")
     }
 }

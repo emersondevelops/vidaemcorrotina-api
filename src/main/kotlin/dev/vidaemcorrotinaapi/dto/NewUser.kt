@@ -6,5 +6,7 @@ import javax.validation.constraints.NotNull
 
 data class NewUser(
     @get:NotBlank val name: String?,
-    @get:NotNull val role: Role?
+    @get:NotBlank val email: String?,
+    @get:NotNull val role: Role?,
+    @get:NotBlank val password: String?
 )
