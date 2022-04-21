@@ -5,6 +5,8 @@ import java.time.LocalDateTime
 import java.util.UUID
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.EnumType
+import javax.persistence.Enumerated
 import javax.persistence.Id
 import javax.persistence.Table
 
@@ -16,6 +18,7 @@ class UserEntity(
     val name: String,
     @Column(unique = true)
     val email: String,
+    @Enumerated(EnumType.STRING)
     val role: Role,
     val password: String,
     val createdAt: LocalDateTime = LocalDateTime.now(),
