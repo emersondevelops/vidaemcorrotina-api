@@ -8,5 +8,6 @@ data class NewUser(
     @get:NotBlank val name: String?,
     @get:NotBlank val email: String?,
     @get:NotNull val role: Role?,
-    @get:NotBlank val password: String?
+    @get:NotBlank val password: String?,
+    @get:NotBlank val cpf: String?
 )

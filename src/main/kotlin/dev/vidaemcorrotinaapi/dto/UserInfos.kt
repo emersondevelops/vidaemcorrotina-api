@@ -11,6 +11,7 @@ data class UserInfos(
     val id: UUID,
     val name: String,
     val email: String,
+    val cpf: String,
     val role: Role,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime?,

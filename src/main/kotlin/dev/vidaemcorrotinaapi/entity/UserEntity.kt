@@ -18,6 +18,7 @@ class UserEntity(
     val name: String,
     @Column(unique = true)
     val email: String,
+    val cpf: String,
     @Enumerated(EnumType.STRING)
     val role: Role,
     val password: String,

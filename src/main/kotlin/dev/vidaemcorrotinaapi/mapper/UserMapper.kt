@@ -9,7 +9,8 @@ fun NewUser.toEntity(): UserEntity {
         name = name!!,
         email = email!!,
         role = role!!,
-        password = password!!
+        password = password!!,
+        cpf = cpf!!
     )
 }
 
@@ -18,6 +19,7 @@ fun UserEntity.toUserInfosDto(): UserInfos {
         id = id,
         name = name,
         email = email,
+        cpf = cpf,
         role = role,
         createdAt = createdAt,
         updatedAt = updatedAt
